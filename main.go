@@ -79,7 +79,7 @@ func run() error {
 
 	r, err := os.Open(*tarPath)
 	if err != nil {
-		return err
+		return fmt.Errorf("unable to open file: %v", err)
 	}
 	defer r.Close()
 
