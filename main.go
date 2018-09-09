@@ -15,14 +15,22 @@ import (
 	"github.com/fatih/color"
 )
 
+// Files defines type for tar headers
 type Files []*tar.Header
 
+// Implementation of sorting for headers
+
+// Len returns length of header
 func (s Files) Len() int {
 	return len(s)
 }
+
+// Swap provides swaping of two headers
 func (s Files) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
+
+// Less provides compare of two files
 func (s Files) Less(i, j int) bool {
 	if s[i].Size != s[j].Size {
 		return s[i].Size > s[j].Size
@@ -125,11 +133,6 @@ func run() error {
 	manifest := manifests[0]
 	history := img.History[:0]
 	history = removeEmptyLayers(history, img.History)
-	/*for _, action := range img.History {
-		if !action.EmptyLayer {
-			history = append(history, action)
-		}
-	}*/
 
 	cmdWidth := *lineWidth - humanizedWidth - 4
 	for i, action := range history {
