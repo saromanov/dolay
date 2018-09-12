@@ -38,16 +38,20 @@ func (s Files) Less(i, j int) bool {
 	return s[i].Name < s[j].Name
 }
 
+// ManifestItem defines manifest
+// for the docker manifest
 type ManifestItem struct {
 	Config   string
 	RepoTags []string
 	Layers   []string
 }
 
+// History defines struct for the layer's history
 type History struct {
 	EmptyLayer bool   `json:"empty_layer,omitempty"`
 	CreatedBy  string `json:"created_by,omitempty"`
 }
+
 type Image struct {
 	History []History `json:"history,omitempty"`
 }
@@ -71,6 +75,7 @@ func removeEmptyLayers(h []History, old []History) []History {
 	}
 	return h
 }
+
 func run() error {
 	tarPath := flag.String("f", "-", "layer.tar path")
 	maxFiles := flag.Int("n", 10, "max files")
