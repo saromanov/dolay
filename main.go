@@ -81,7 +81,6 @@ func run() error {
 	maxFiles := flag.Int("n", 10, "max files")
 	lineWidth := flag.Int("l", 100, "screen line width")
 	flag.Parse()
-
 	r, err := os.Open(*tarPath)
 	if err != nil {
 		return fmt.Errorf("unable to open file: %v", err)
