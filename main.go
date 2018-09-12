@@ -77,7 +77,7 @@ func removeEmptyLayers(h []History, old []History) []History {
 }
 
 func run() error {
-	tarPath := flag.String("f", "-", "layer.tar path")
+	tarPath := flag.String("p", "-", "layer.tar path")
 	maxFiles := flag.Int("n", 10, "max files")
 	lineWidth := flag.Int("l", 100, "screen line width")
 	flag.Parse()
