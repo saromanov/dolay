@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"os/exec"
 	"sort"
 	"strings"
 
@@ -80,6 +81,12 @@ func run() error {
 	tarPath := flag.String("p", "-", "layer.tar path")
 	maxFiles := flag.Int("n", 10, "max files")
 	lineWidth := flag.Int("l", 100, "screen line width")
+	saveImage := flag.String("s", "-", "save of the image")
+	if *saveImage != "" {
+		cmd := exec.Command("/bin/sh", "-c", fmt.Sprintf("sudo docker save -o image.tar %s", *saveImage))
+		output, _ := cmd.Output()
+		fmt.Printf("OUTPUT: %s", output)
+	}
 	flag.Parse()
 	r, err := os.Open(*tarPath)
 	if err != nil {
@@ -137,7 +144,6 @@ func run() error {
 	manifest := manifests[0]
 	history := img.History[:0]
 	history = removeEmptyLayers(history, img.History)
-
 	cmdWidth := *lineWidth - humanizedWidth - 4
 	for i, action := range history {
 		layer := layers[manifest.Layers[i]]
